@@ -1,0 +1,19 @@
+file: .gitignore
+
+commands:
+  # Uncomment
+  - replace:
+      line: [14, 15]
+      from: "#"
+      to: ""
+  - replace:
+      line: [33, 34]
+      from: "#"
+      to: ""
+
+  - delete:
+      line: [35, 53]
+
+run:
+- git rm -r --cached .idea/
+- git rm -r --cached run/ run_server/
