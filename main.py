@@ -151,7 +151,23 @@ def runCondition(condition):
     try:
         return conditions[condition]
     except KeyError:
-        raise KeyError(f"{condition} is not a valid condition")
+        if '||' in condition or '&&' in condition or '!' in condition:
+            new_condition = condition.replace('||', 'or')
+            new_condition = new_condition.replace('&&', 'and')
+            new_condition = new_condition.replace('!', 'not')
+
+            hasKey = False
+            for key in list(conditions.keys()):
+                if key in new_condition:
+                    hasKey = True
+                    new_condition = new_condition.replace(key, str(conditions[key]))
+
+            if hasKey:
+                return eval(new_condition)
+            else:
+                return False
+        else:
+            raise KeyError(f"{condition} is not a valid condition")
     return False
 
 
