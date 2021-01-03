@@ -165,8 +165,15 @@ def runCommand(commandYaml, filePath):
         condition = ""
 
     if condition != "":
+        try:
+            else_command = commandData['else']
+        except KeyError:
+            else_command = ""
+
         if runCondition(condition):
             cmds.executeCommand(command, commandData, filePath)
+        elif else_command != "":
+            cmds.executeCommand(else_command, commandData, filePath)
     else:
         cmds.executeCommand(command, commandData, filePath)
 
