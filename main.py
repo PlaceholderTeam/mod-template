@@ -188,6 +188,17 @@ def runTpl(templateFile):
 
     filePath = data['file']
 
+    # If
+    try:
+        tpl_condition = data['if']
+        if not runCondition(tpl_condition):
+            print('Aborting template usage: if condition not met')
+            print('--')
+            return
+
+    except KeyError:
+        pass
+
     # Action
     try:
         action = data['action']
