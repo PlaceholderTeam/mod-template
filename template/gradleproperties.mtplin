@@ -1,0 +1,9 @@
+file: gradle.properties
+
+commands:
+  - placeholder:
+      line: 11
+      count: 1
+  - placeholder:
+      line: 13
+      count: 1
