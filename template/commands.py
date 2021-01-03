@@ -89,6 +89,16 @@ def __replacePlaceholder__(string, placeholder, count):
     return string
 
 
+def __replaceInlinePlaceholder__(string):
+    global placeholders
+
+    for placeholder in list(placeholders.keys()):
+        if f"¿{placeholder}¿" in string:
+            string = string.replace(f"¿{placeholder}¿", placeholders[placeholder])
+
+    return string
+
+
 def __insert__(commandData, filePath):
     global lines_added
     global previous_line
@@ -100,6 +110,9 @@ def __insert__(commandData, filePath):
         raise TypeError('commands.insert.line must be int, not ' + type(line))
 
     text = commandData['text']
+
+    if '¿' in text:
+        text = __replaceInlinePlaceholder__(text)
 
     contents = __readContents__(filePath)
     contents.insert(line + lines_added, text)
