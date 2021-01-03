@@ -34,6 +34,8 @@ argparser.add_argument('-n', '--name', type=str,
                        nargs='?', help='Set a name for the mod.')
 argparser.add_argument('-i', '--namespace', type=str,
                        nargs='?', help='Set a namespace to give to the mod.')
+argparser.add_argument('-v', '--version', type=str,
+                       nargs='?', help='Set a starting version to give to the mod.')
 
 argparser.add_argument('-B', '--bintray', action='store_true',
                        help='Use Bintray with the mod publication.')
@@ -54,6 +56,7 @@ PACKAGE_NAME = arguments.get('package_name')
 CLASS_NAME = arguments.get('class_name')
 MOD_NAME = arguments.get('name')
 MOD_NAMESPACE = arguments.get('namespace')
+MOD_VERSION = arguments.get('version')
 
 # Set defaults
 if PACKAGE_NAME == None:
@@ -64,6 +67,8 @@ if MOD_NAME == None:
     MOD_NAME = re.sub('(-|^)([a-z])', __replace_up_b__, MOD_ID)
 if MOD_NAMESPACE == None:
     MOD_NAMESPACE = MOD_ID.replace('-', '_')
+if MOD_VERSION == None:
+    MOD_VERSION = '1.0.0'
 
 
 REPO_NAME = os.path.basename(os.getcwd())
@@ -81,6 +86,7 @@ print(f"New package name = '{PACKAGE_NAME}'")
 print(f"New class name = '{CLASS_NAME}'")
 print(f"New mod name = '{MOD_NAME}'")
 print(f"New mod namespace = '{MOD_NAMESPACE}'")
+print(f"New mod start version = '{MOD_VERSION}'")
 print(f"Current directory/repository name = '{REPO_NAME}'")
 print('\n')
 
@@ -110,6 +116,27 @@ response = input("Are you sure? [y/N] ")
 if not (response.startswith('y') or response.lower() == 'yes'):
     print("Aborting.")
     exit(1)
+
+
+def updatePlaceholders():
+    global MOD_ID
+    global PACKAGE_NAME
+    global CLASS_NAME
+    global MOD_NAME
+    global MOD_NAMESPACE
+    global REPO_NAME
+    global MOD_VERSION
+    placeholders = {
+        'template-mod-id': MOD_ID,
+        'templatemodpkg': PACKAGE_NAME,
+        'TemplateModClass': CLASS_NAME,
+        'Template_Mod_Name': MOD_NAME,
+        'template_mod': MOD_NAMESPACE,
+        'template-mod-dir': REPO_NAME,
+        'template-mod-ver': MOD_VERSION,
+    }
+
+    cmds.setPlaceholders(placeholders)
 
 
 def runCondition(condition):
@@ -146,6 +173,8 @@ def runCommand(commandYaml, filePath):
 
 def runTpl(templateFile):
     print('Loading and running template', templateFile.name.split('/')[-1])
+
+    cmds.resetVars()
 
     data = YAML.load(templateFile)
     templateFile.close()
@@ -202,6 +231,9 @@ def runTpl(templateFile):
         pass
 
     print('--')
+
+
+updatePlaceholders()
 
 templateDir = os.fsencode('template/')
 

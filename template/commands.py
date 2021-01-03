@@ -18,6 +18,13 @@ def setPlaceholders(newPlaceholders):
     placeholders = newPlaceholders
 
 
+def resetVars():
+    global lines_added
+    lines_added = 0
+    global previous_line
+    previous_line = 0
+
+
 def executeCommand(command, commandData, filePath):
     if command == "insert":
         __insert__(commandData, filePath)
