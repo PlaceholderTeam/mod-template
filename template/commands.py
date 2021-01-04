@@ -314,7 +314,7 @@ def __placeholder__(commandData, filePath):
     elif type(line) == CommentedSeq:
         if not debug_mode:
             for i, lineStr in enumerate(contents):
-                if i + 1 - lines_added not in range(line[0], line[1]):
+                if i + 1 - lines_added not in range(line[0], line[1] + 1):
                     f.write(lineStr)
                 else:
                     f.write(__replacePlaceholder__(
