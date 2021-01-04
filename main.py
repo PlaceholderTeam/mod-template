@@ -315,7 +315,8 @@ def runTpl(templateFile):
 
         for command in shell_commands:
             print(f"'{command}':")
-            subprocess.run(command.split())
+            if not DEBUG_MODE:
+                subprocess.run(command.split())
             print('-- Finished command --')
     except KeyError:
         pass
