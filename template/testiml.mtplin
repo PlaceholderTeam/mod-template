@@ -1,0 +1,9 @@
+file: .idea/modules/¿template-mod-dir¿.main.iml
+action: move
+from: .idea/modules/mod-template.main.iml
+
+commands:
+  # Does nothing
+  - placeholder:
+      line: 1
+      count: 0

@@ -1,0 +1,12 @@
+file: .idea/runConfigurations/Minecraft_Server.xml
+
+commands:
+  - replace:
+      line: 4
+      from: mod-template
+      to: ¿template-mod-dir¿
+  - replace:
+      line: [5, 6]
+      if: linux
+      from: \
+      to: /
