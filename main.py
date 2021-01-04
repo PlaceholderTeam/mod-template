@@ -247,10 +247,12 @@ def runTpl(templateFile):
                     print(f"Created directory => {fileDir}")
 
             # Create file
+            print(f"Created file => {filePath}")
             if not DEBUG_MODE:
                 f = open(filePath, 'w')
                 f.close()
-            print(f"Created file => {filePath}")
+            else:
+                filePath = 'main.py' # Direct to script to avoid FileNotFoundError because the file wasn't created
 
         elif action == "duplicate":
             try:
@@ -274,9 +276,11 @@ def runTpl(templateFile):
                         os.makedirs(fileDir)
                     print(f"Created directory => {fileDir}")
 
+            print(f"Copied file from '{fromFilePath}' to '{filePath}'")
             if not DEBUG_MODE:
                 shutil.copyfile(fromFilePath, filePath)
-            print(f"Copied file from '{fromFilePath}' to '{filePath}'")
+            else:
+                filePath = fromFilePath # Direct to source file to avoid FileNotFoundError because the file wasn't copied/created
 
         elif action == "move":
             sourceFilePath = data['from']
@@ -292,9 +296,11 @@ def runTpl(templateFile):
                         os.makedirs(fileDir)
                     print(f"Created directory => {fileDir}")
 
+            print(f"{sourceFilePath} => {filePath}")
             if not DEBUG_MODE:
                 os.rename(sourceFilePath, filePath)
-            print(f"{sourceFilePath} => {filePath}")
+            else:
+                filePath = sourceFilePath # Direct to source file to avoid FileNotFoundError because the file wasn't moved/created
 
     except KeyError:
         pass
