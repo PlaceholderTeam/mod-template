@@ -44,7 +44,41 @@ run:
 - echo "tset"
 ```
 
-### Reference
+## Commands
+- `delete` - delete the line(s).
+- `insert` - insert a line. The [`line`](#commandscommandline) should have only one line, which is above where the text will be inserted.
+- `erase` - set a line or lines to whitespace.
+- `replace` - replace text **a** with text **b**. Use [`from`](#commandsreplacefrom) to define text **a** and [`to`](#commandsreplaceto) to define text **b**.
+- `placeholder` - indicate to replace the [placeholders](#placeholders) on that line or lines.
+
+## Conditions
+Most of the conditions are if the mod uses the option.
+- Bintray - `b`
+- Curseforge - `cf`
+- Github actions - `gh`
+- Modrinth - `m`
+- Mixin - `mx`
+- Linux - `linux` - If the system running the script is linux
+
+## Placeholders
+On the files you can set placeholders that will be replaced when using the `placeholder` command. These placeholders are:
+- `template-mod-id` - the mod id
+- `templatemodpkg` - the mod package
+- `TemplateModClass` - the mod class
+- `Template_Mod_Name` - the mod name
+- `template_mod` - the mod namespace/id
+- `template-mod-dir` - the mod directory/repository name
+- `template-mod-ver` - the mod version.
+
+To use placeholders inside `commands.insert.text` just put the placeholder between two `¿` (Alt + 0191).
+
+## Customization
+If you want to customize the template, here are some instructions to do some things.
+- To add a command, on the `template/commands.py` file, add a function that takes a `ruamel.yaml.comments.CommentedSeq` and a file path as a `str` (you can check the other functions to see how to do it). Once it's done, add a new key to the dict `commands` at the line 39, with the command string as the key and the command function as the value.
+- To add a placeholder, on the main.py file, add a variable that will hold the placeholder value. Then, add a new key to the `placeholders` dict at the line 138, using the placeholder name as key and the variable as value. If you update the variable, call `updatePlaceholders()` to correctly update its value.
+- To add a condition, on the main.py file, add a variable that will hold the placeholder value, a `bool`. Then, add a new key to the `conditions` dict at the line 152, using the condition name as key and the variable as value.
+
+## Reference
 #### `file`
 **Required** The path to the file the template will modify.
 
@@ -91,37 +125,3 @@ Run commands on the terminal once the template file is finished.
 
 #### `run.<command>`
 **Required** The command or commands that will be run once the template is finished.
-
-## Commands
-- `delete` - delete the line(s).
-- `insert` - insert a line. The [`line`](#commandscommandline) should have only one line, which is above where the text will be inserted.
-- `erase` - set a line or lines to whitespace.
-- `replace` - replace text **a** with text **b**. Use [`from`](#commandsreplacefrom) to define text **a** and [`to`](#commandsreplaceto) to define text **b**.
-- `placeholder` - indicate to replace the [placeholders](#placeholders) on that line or lines.
-
-## Conditions
-Most of the conditions are if the mod uses the option.
-- Bintray - `b`
-- Curseforge - `cf`
-- Github actions - `gh`
-- Modrinth - `m`
-- Mixin - `mx`
-- Linux - `linux` - If the system running the script is linux
-
-## Placeholders
-On the files you can set placeholders that will be replaced when using the `placeholder` command. These placeholders are:
-- `template-mod-id` - the mod id
-- `templatemodpkg` - the mod package
-- `TemplateModClass` - the mod class
-- `Template_Mod_Name` - the mod name
-- `template_mod` - the mod namespace/id
-- `template-mod-dir` - the mod directory/repository name
-- `template-mod-ver` - the mod version.
-
-To use placeholders inside `commands.insert.text` just put the placeholder between two `¿` (Alt + 0191).
-
-## Customization
-If you want to customize the template, here are some instructions to do some things.
-- To add a command, on the `template/commands.py` file, add a function that takes a `ruamel.yaml.comments.CommentedSeq` and a file path as a `str` (you can check the other functions to see how to do it). Once it's done, add a new key to the dict `commands` at the line 39, with the command string as the key and the command function as the value.
-- To add a placeholder, on the main.py file, add a variable that will hold the placeholder value. Then, add a new key to the `placeholders` dict at the line 138, using the placeholder name as key and the variable as value. If you update the variable, call `updatePlaceholders()` to correctly update its value.
-- To add a condition, on the main.py file, add a variable that will hold the placeholder value, a `bool`. Then, add a new key to the `conditions` dict at the line 152, using the condition name as key and the variable as value.
