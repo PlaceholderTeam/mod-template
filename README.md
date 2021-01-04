@@ -2,6 +2,9 @@
 
 So, you probably are asking yourself, what is this all about? Well, it's my mod template! All my new mods, once this is done, will be generated using this template. To generate a mod, the template has a script file, which picks instructions from the [template files](#template-files) under the `template` folder.
 
+## License
+This template is available under the MIT license. Feel free to modify and use it as long as you preserve copyright and license notices.
+
 ## Template Files
 To provide instructions to the script without hardcoding it, I have created files with the `.mtplin` (**M**od**T**em**PL**ate**IN**structions), located at the `template` folder. Each of these files contains a series of ["commands"](#commands) that will explain what to do.
 
