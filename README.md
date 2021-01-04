@@ -72,6 +72,20 @@ On the files you can set placeholders that will be replaced when using the `plac
 
 To use placeholders inside `commands.insert.text` just put the placeholder between two `¿` (Alt + 0191).
 
+## Usage
+The basic usage of the script is, on the terminal:
+```
+$ ./main.py <mod-id>
+```
+More information about the usage can be obtained with:
+```
+$ ./main.py -h
+```
+or
+```
+$ ./main.py --help
+```
+
 ## Customization
 If you want to customize the template, here are some instructions to do some things.
 - To add a command, on the `template/commands.py` file, add a function that takes a `ruamel.yaml.comments.CommentedSeq` and a file path as a `str` (you can check the other functions to see how to do it). Once it's done, add a new key to the dict `commands` at the line 39, with the command string as the key and the command function as the value.
