@@ -335,7 +335,7 @@ for file in os.listdir(templateDir):
 
 if not DEBUG_MODE:
     # Auto destroy the template
-    os.remove('template/')
+    shutil.rmtree('template/')
 
     # Auto destroy the python script
     os.remove('main.py')
