@@ -249,6 +249,10 @@ def runTpl(templateFile):
             shutil.copyfile(oldFilePath, filePath)
             print(f"Copied file from '{oldFilePath}' to '{filePath}'")
 
+        elif action == "move":
+            sourceFilePath = data['from']
+            os.rename(sourceFilePath, filePath)
+
     except KeyError:
         pass
 
