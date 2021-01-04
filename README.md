@@ -93,14 +93,13 @@ Run commands on the terminal once the template file is finished.
 **Required** The command or commands that will be run once the template is finished.
 
 ## Commands
-### Command list
 - `delete` - delete the line(s).
 - `insert` - insert a line. The [`line`](#commandscommandline) should have only one line, which is above where the text will be inserted.
 - `erase` - set a line or lines to whitespace.
 - `replace` - replace text **a** with text **b**. Use [`from`](#commandsreplacefrom) to define text **a** and [`to`](#commandsreplaceto) to define text **b**.
 - `placeholder` - indicate to replace the [placeholders](#placeholders) on that line or lines.
 
-### Conditions
+## Conditions
 Most of the conditions are if the mod uses the option.
 - Bintray - `b`
 - Curseforge - `cf`
@@ -120,3 +119,9 @@ On the files you can set placeholders that will be replaced when using the `plac
 - `template-mod-ver` - the mod version.
 
 To use placeholders inside `commands.insert.text` just put the placeholder between two `¿` (Alt + 0191).
+
+## Customization
+If you want to customize the template, here are some instructions to do some things.
+- To add a command, on the `template/commands.py` file, add a function that takes a `ruamel.yaml.comments.CommentedSeq` and a file path as a `str` (you can check the other functions to see how to do it). Once it's done, add a new key to the dict `commands` at the line 39, with the command string as the key and the command function as the value.
+- To add a placeholder, on the main.py file, add a variable that will hold the placeholder value. Then, add a new key to the `placeholders` dict at the line 138, using the placeholder name as key and the variable as value. If you update the variable, call `updatePlaceholders()` to correctly update its value.
+- To add a condition, on the main.py file, add a variable that will hold the placeholder value, a `bool`. Then, add a new key to the `conditions` dict at the line 152, using the condition name as key and the variable as value.
