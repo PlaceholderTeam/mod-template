@@ -36,17 +36,17 @@ def resetVars():
 
 
 def executeCommand(command, commandData, filePath):
-    if command == "insert":
-        __insert__(commandData, filePath)
-    elif command == "delete":
-        __delete__(commandData, filePath)
-    elif command == "erase":
-        __erase__(commandData, filePath)
-    elif command == "replace":
-        __replace__(commandData, filePath)
-    elif command == "placeholder":
-        __placeholder__(commandData, filePath)
-    else:
+    commands = {
+        'insert': __insert__,
+        'delete': __delete__,
+        'erase': __erase__,
+        'replace': __replace__,
+        'placeholder': __placeholder__,
+    }
+
+    try:
+        commands[command](commandData, filePath)
+    except KeyError:
         raise RuntimeError('Unknown command ' + command)
 
 
