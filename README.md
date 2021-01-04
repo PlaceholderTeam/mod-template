@@ -5,8 +5,17 @@ So, you probably are asking yourself, what is this all about? Well, it's my mod 
 ## License
 This template is available under the MIT license. Feel free to modify and use it as long as you preserve copyright and license notices.
 
+## Requirements
+To use the template you will need Python 3.6 or higher. Also, you will need [ruamel.yaml](https://pypi.org/project/ruamel.yaml/), which can be installed with `pip install ruamel.yaml`.
+
+## About this template
+This template was originally named `mod-skeleton`, (one of my private repositories, now archived), which was also based on the [`fabric-barebones`](https://github.com/LoganDark/fabric-barebones) repository by [LoganDark](https://github.com/LoganDark).
+The `mod-skeleton` repo was an attempt to create something similar to `fabric-barebones`. I used it for a bunch of private mods; the only public ones which used it were [`VTDownloader`](https://github.com/ByMartrixx/VTDownloader) and [`wdmcf`](https://github.com/ByMartrixx/wdmcf).
+Because I had two scripts which intended to do exactly the same (at one point there were three), [one in shell](https://github.com/ByMartrixx/VTDownloader/blob/f702974054e512c05dedc714aff17ebfcc0ccecb/generate.sh) and [one in python](https://github.com/ByMartrixx/VTDownloader/blob/f702974054e512c05dedc714aff17ebfcc0ccecb/generate.py), it got harder for me to add functionality to `mod-skeleton`, so I decided to create a new template with no hardcoded things, easy to update and with only one script, in python.
+That's how `mod-template` was created.
+
 ## Template Files
-To provide instructions to the script without hardcoding it, I have created files with the `.mtplin` (**M**od**T**em**PL**ate**IN**structions), located at the `template` folder. Each of these files contains a series of ["commands"](#commands) that will explain what to do.
+To provide instructions to the script without hardcoding them to a single python file, I have created files with the `.mtplin` (**M**od**T**em**PL**ate**IN**structions). Each of these files contains a series of ["commands"](#commands) that will explain what to do.
 
 ##### Example
 ```yaml
