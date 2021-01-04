@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 from ruamel.yaml import YAML as YML
+from ruamel.yaml.comments import CommentedSeq
+from io import TextIOWrapper
+import ntpath
 import argparse
 import os
 import re
@@ -148,7 +151,7 @@ def updatePlaceholders():
     cmds.setPlaceholders(placeholders)
 
 
-def runCondition(condition):
+def runCondition(condition: str):
     conditions = {
         'b': USE_BINTRAY,
         'cf': USE_CURSEFORGE,
@@ -182,7 +185,7 @@ def runCondition(condition):
     return False
 
 
-def runCommand(commandYaml, filePath):
+def runCommand(commandYaml: CommentedSeq, filePath: str):
     command = list(commandYaml.keys())[0]
     commandData = commandYaml[command]
 
@@ -205,9 +208,9 @@ def runCommand(commandYaml, filePath):
         cmds.executeCommand(command, commandData, filePath)
 
 
-def runTpl(templateFile):
+def runTpl(templateFile: TextIOWrapper):
     global DEBUG_MODE
-    print('Loading and running template', templateFile.name.split('/')[-1])
+    print('Loading and running template', ntpath.basename(templateFile.name))
 
     cmds.resetVars()
 

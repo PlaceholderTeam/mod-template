@@ -1,4 +1,5 @@
 from ruamel.yaml.comments import CommentedMap, CommentedSeq
+from typing import Any
 
 # Track how many lines have been added
 lines_added = 0
@@ -12,7 +13,7 @@ placeholders = {
 debug_mode = False
 
 
-def setPlaceholders(newPlaceholders):
+def setPlaceholders(newPlaceholders: dict):
     if type(newPlaceholders) != dict:
         raise TypeError('Must be dict, not ' + type(newPlaceholders))
 
@@ -20,7 +21,7 @@ def setPlaceholders(newPlaceholders):
     placeholders = newPlaceholders
 
 
-def setDebugMode(newDebugMode):
+def setDebugMode(newDebugMode: bool):
     if type(newDebugMode) != bool:
         raise TypeError('Must be bool, not ' + type(newDebugMode))
 
@@ -35,7 +36,7 @@ def resetVars():
     previous_line = 0
 
 
-def executeCommand(command, commandData, filePath):
+def executeCommand(command: str, commandData: CommentedMap, filePath: str):
     commands = {
         'insert': __insert__,
         'delete': __delete__,
@@ -50,7 +51,7 @@ def executeCommand(command, commandData, filePath):
         raise RuntimeError('Unknown command ' + command)
 
 
-def __checkLine__(line):
+def __checkLine__(line: Any):
     """Check if the line input is valid
 
     Args:
@@ -73,7 +74,7 @@ def __checkLine__(line):
                 'The start line must not be equal or greater than the end line')
 
 
-def __readContents__(filePath):
+def __readContents__(filePath: str):
     with open(filePath, 'r') as f:
         contents = f.readlines()
         f.close()
@@ -81,7 +82,7 @@ def __readContents__(filePath):
         return contents
 
 
-def __replacePlaceholder__(string, placeholder, count):
+def __replacePlaceholder__(string: str, placeholder: str, count: int):
     global placeholders
 
     if placeholder != "":
@@ -101,7 +102,7 @@ def __replacePlaceholder__(string, placeholder, count):
     return string
 
 
-def __replaceInlinePlaceholder__(string):
+def __replaceInlinePlaceholder__(string: str):
     global placeholders
 
     for placeholder in list(placeholders.keys()):
@@ -112,7 +113,7 @@ def __replaceInlinePlaceholder__(string):
     return string
 
 
-def __insert__(commandData, filePath):
+def __insert__(commandData: CommentedMap, filePath: str):
     global lines_added
     global previous_line
     global debug_mode
@@ -143,7 +144,7 @@ def __insert__(commandData, filePath):
     print(f"{filePath}: Inserted text at line {line}")
 
 
-def __delete__(commandData, filePath):
+def __delete__(commandData: CommentedMap, filePath: str):
     global lines_added
     global previous_line
     global debug_mode
@@ -180,7 +181,7 @@ def __delete__(commandData, filePath):
         print(f"{filePath}: Deleted lines from {line[0]} to {line[1]}")
 
 
-def __erase__(commandData, filePath):
+def __erase__(commandData: CommentedMap, filePath: str):
     global lines_added
     global previous_line
     global debug_mode
@@ -221,7 +222,7 @@ def __erase__(commandData, filePath):
         print(f"{filePath}: Erased lines from {line[0]} to {line[1]}")
 
 
-def __replace__(commandData, filePath):
+def __replace__(commandData: CommentedMap, filePath: str):
     global lines_added
     global previous_line
     global debug_mode
@@ -272,7 +273,7 @@ def __replace__(commandData, filePath):
             f"{filePath}: Replaced from '{from_}' to '{to}' on lines from {line[0]} to {line[1]}")
 
 
-def __placeholder__(commandData, filePath):
+def __placeholder__(commandData: CommentedMap, filePath: str):
     global lines_added
     global previous_line
     global debug_mode
