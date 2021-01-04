@@ -1,0 +1,22 @@
+file: src/main/resources/fabric.mod.json
+
+commands:
+  - placeholder:
+      line: 3
+      count: 1
+  - placeholder:
+      line: [6, 7]
+      count: 1
+  - placeholder:
+      line: [12, 13]
+      count: 1
+  - placeholder:
+      line: 17
+      count: 1
+  - placeholder:
+      line: 22
+      count: 2
+  - insert:
+      line: 25
+      if: mx
+      text: "    \"¿template_mod¿.mixins.json\"\n"
