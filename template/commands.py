@@ -208,6 +208,9 @@ def __replace__(commandData, filePath):
     from_ = commandData['from']
     to = commandData['to']
 
+    if '¿' in to:
+        to = __replaceInlinePlaceholder__(to)
+
     try:
         count = commandData['count']
     except KeyError:
