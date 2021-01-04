@@ -50,7 +50,7 @@ argparser.add_argument('-MX', '--mixin', action='store_true',
                        help='Use mixins on the mod.')
 
 argparser.add_argument('-d', '--debug', action='store_true',
-                       help='Use the script in debug mode. It won\'t delete itself or the template.')
+                       help='Use the script in debug mode. It won\'t delete itself or the template and it won\'t make any actual operation.')
 
 arguments = vars(argparser.parse_args())
 
@@ -115,6 +115,10 @@ if len(usages) > 0:
         string = ", ".join(usages[:-1])
         string = string + " & " + usages[-1]
         print(f"Using {string}\n")
+
+if DEBUG_MODE:
+    print("Running on debug mode!\n")
+    cmds.setDebugMode(DEBUG_MODE)
 
 response = input("Are you sure? [y/N] ")
 
@@ -202,6 +206,7 @@ def runCommand(commandYaml, filePath):
 
 
 def runTpl(templateFile):
+    global DEBUG_MODE
     print('Loading and running template', templateFile.name.split('/')[-1])
 
     cmds.resetVars()
@@ -237,13 +242,15 @@ def runTpl(templateFile):
                 fileDir = '/'.join(path[:-1])
 
                 if not os.path.exists(fileDir):
-                    os.makedirs(fileDir)
+                    if not DEBUG_MODE:
+                        os.makedirs(fileDir)
                     print(f"Created directory => {fileDir}")
 
             # Create file
-            f = open(filePath, 'w')
+            if not DEBUG_MODE:
+                f = open(filePath, 'w')
+                f.close()
             print(f"Created file => {filePath}")
-            f.close()
 
         elif action == "duplicate":
             try:
@@ -256,7 +263,19 @@ def runTpl(templateFile):
                 fileExtension = filePath.split('.')[-1]
                 filePath = filePath.split('.')[0] + "-copy." + fileExtension
 
-            shutil.copyfile(fromFilePath, filePath)
+            path = filePath.split('/')
+
+            # Create folder if it doesn't exist
+            if len(path) > 1:
+                fileDir = '/'.join(path[:-1])
+
+                if not os.path.exists(fileDir):
+                    if not DEBUG_MODE:
+                        os.makedirs(fileDir)
+                    print(f"Created directory => {fileDir}")
+
+            if not DEBUG_MODE:
+                shutil.copyfile(fromFilePath, filePath)
             print(f"Copied file from '{fromFilePath}' to '{filePath}'")
 
         elif action == "move":
@@ -269,10 +288,13 @@ def runTpl(templateFile):
                 fileDir = '/'.join(path[:-1])
 
                 if not os.path.exists(fileDir):
-                    os.makedirs(fileDir)
+                    if not DEBUG_MODE:
+                        os.makedirs(fileDir)
                     print(f"Created directory => {fileDir}")
 
-            os.rename(sourceFilePath, filePath)
+            if not DEBUG_MODE:
+                os.rename(sourceFilePath, filePath)
+            print(f"{sourceFilePath} => {filePath}")
 
     except KeyError:
         pass

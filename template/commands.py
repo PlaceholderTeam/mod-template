@@ -9,6 +9,8 @@ placeholders = {
     'placeholder_key': 'placeholder_value'
 }
 
+debug_mode = False
+
 
 def setPlaceholders(newPlaceholders):
     if type(newPlaceholders) != dict:
@@ -16,6 +18,14 @@ def setPlaceholders(newPlaceholders):
 
     global placeholders
     placeholders = newPlaceholders
+
+
+def setDebugMode(newDebugMode):
+    if type(newDebugMode) != bool:
+        raise TypeError('Must be bool, not ' + type(newDebugMode))
+
+    global debug_mode
+    debug_mode = newDebugMode
 
 
 def resetVars():
@@ -52,13 +62,15 @@ def __checkLine__(line):
         if line == previous_line:
             raise RuntimeError('Lines should not be modified twice')
         elif line < previous_line:
-            raise RuntimeError('The lines in the .mtplin should be in raising order')
+            raise RuntimeError(
+                'The lines in the .mtplin should be in raising order')
     elif type(line) == CommentedSeq:
         __checkLine__(int(line[0]))
         __checkLine__(int(line[1]))
 
         if line[0] >= line[1]:
-            raise RuntimeError('The start line must not be equal or greater than the end line')
+            raise RuntimeError(
+                'The start line must not be equal or greater than the end line')
 
 
 def __readContents__(filePath):
@@ -94,7 +106,8 @@ def __replaceInlinePlaceholder__(string):
 
     for placeholder in list(placeholders.keys()):
         if f"¿{placeholder}¿" in string:
-            string = string.replace(f"¿{placeholder}¿", placeholders[placeholder])
+            string = string.replace(
+                f"¿{placeholder}¿", placeholders[placeholder])
 
     return string
 
@@ -102,6 +115,7 @@ def __replaceInlinePlaceholder__(string):
 def __insert__(commandData, filePath):
     global lines_added
     global previous_line
+    global debug_mode
 
     line = commandData['line']
     __checkLine__(line)
@@ -118,9 +132,10 @@ def __insert__(commandData, filePath):
     contents.insert(line + lines_added, text)
     contents = "".join(contents)
 
-    f = open(filePath, 'w')
-    f.write(contents)
-    f.close()
+    if not debug_mode:
+        f = open(filePath, 'w')
+        f.write(contents)
+        f.close()
 
     lines_added += len(text.split('\n')) - 1
     previous_line = line
@@ -131,18 +146,21 @@ def __insert__(commandData, filePath):
 def __delete__(commandData, filePath):
     global lines_added
     global previous_line
+    global debug_mode
 
     line = commandData['line']
     __checkLine__(line)
 
     contents = __readContents__(filePath)
 
-    f = open(filePath, 'w')
+    if not debug_mode:
+        f = open(filePath, 'w')
     if type(line) == int:
-        for i, lineStr in enumerate(contents):
-            if i + 1 != line + lines_added:
-                f.write(lineStr)
-        f.close()
+        if not debug_mode:
+            for i, lineStr in enumerate(contents):
+                if i + 1 != line + lines_added:
+                    f.write(lineStr)
+            f.close()
 
         lines_added -= 1
         previous_line = line
@@ -150,10 +168,11 @@ def __delete__(commandData, filePath):
         print(f"{filePath}: Deleted line {line}")
 
     elif type(line) == CommentedSeq:
-        for i, lineStr in enumerate(contents):
-            if i + 1 - lines_added not in range(line[0], line[1] + 1):
-                f.write(lineStr)
-        f.close()
+        if not debug_mode:
+            for i, lineStr in enumerate(contents):
+                if i + 1 - lines_added not in range(line[0], line[1] + 1):
+                    f.write(lineStr)
+            f.close()
 
         lines_added -= line[1] + 1 - line[0]
         previous_line = line[1]
@@ -164,20 +183,23 @@ def __delete__(commandData, filePath):
 def __erase__(commandData, filePath):
     global lines_added
     global previous_line
+    global debug_mode
 
     line = commandData['line']
     __checkLine__(line)
 
     contents = __readContents__(filePath)
 
-    f = open(filePath, 'w')
+    if not debug_mode:
+        f = open(filePath, 'w')
     if type(line) == int:
-        for i, lineStr in enumerate(contents):
-            if i + 1 != line + lines_added:
-                f.write(lineStr)
-            else:
-                f.write('\n')
-        f.close()
+        if not debug_mode:
+            for i, lineStr in enumerate(contents):
+                if i + 1 != line + lines_added:
+                    f.write(lineStr)
+                else:
+                    f.write('\n')
+            f.close()
 
         # Not modifying lines_added because the line isn't deleted, only the contents are
         previous_line = line
@@ -185,12 +207,13 @@ def __erase__(commandData, filePath):
         print(f"{filePath}: Erased line {line}")
 
     elif type(line) == CommentedSeq:
-        for i, lineStr in enumerate(contents):
-            if i + 1 - lines_added not in range(line[0], line[1] + 1):
-                f.write(lineStr)
-            else:
-                f.write('\n')
-        f.close()
+        if not debug_mode:
+            for i, lineStr in enumerate(contents):
+                if i + 1 - lines_added not in range(line[0], line[1] + 1):
+                    f.write(lineStr)
+                else:
+                    f.write('\n')
+            f.close()
 
         # Not modifying lines_added because the line isn't deleted, only the contents are
         previous_line = line[1]
@@ -201,6 +224,7 @@ def __erase__(commandData, filePath):
 def __replace__(commandData, filePath):
     global lines_added
     global previous_line
+    global debug_mode
 
     line = commandData['line']
     __checkLine__(line)
@@ -218,26 +242,29 @@ def __replace__(commandData, filePath):
 
     contents = __readContents__(filePath)
 
-    f = open(filePath, 'w')
+    if not debug_mode:
+        f = open(filePath, 'w')
     if type(line) == int:
-        for i, lineStr in enumerate(contents):
-            if i + 1 != line + lines_added:
-                f.write(lineStr)
-            else:
-                f.write(lineStr.replace(from_, to, count))
-        f.close()
+        if not debug_mode:
+            for i, lineStr in enumerate(contents):
+                if i + 1 != line + lines_added:
+                    f.write(lineStr)
+                else:
+                    f.write(lineStr.replace(from_, to, count))
+            f.close()
 
         previous_line = line
 
         print(f"{filePath}: Replaced from '{from_}' to '{to}' on line {line}")
 
     elif type(line) == CommentedSeq:
-        for i, lineStr in enumerate(contents):
-            if i + 1 - lines_added not in range(line[0], line[1] + 1):
-                f.write(lineStr)
-            else:
-                f.write(lineStr.replace(from_, to, count))
-        f.close()
+        if not debug_mode:
+            for i, lineStr in enumerate(contents):
+                if i + 1 - lines_added not in range(line[0], line[1] + 1):
+                    f.write(lineStr)
+                else:
+                    f.write(lineStr.replace(from_, to, count))
+            f.close()
 
         previous_line = line[1]
 
@@ -248,6 +275,7 @@ def __replace__(commandData, filePath):
 def __placeholder__(commandData, filePath):
     global lines_added
     global previous_line
+    global debug_mode
 
     line = commandData['line']
     __checkLine__(line)
@@ -264,14 +292,17 @@ def __placeholder__(commandData, filePath):
 
     contents = __readContents__(filePath)
 
-    f = open(filePath, 'w')
+    if not debug_mode:
+        f = open(filePath, 'w')
     if type(line) == int:
-        for i, lineStr in enumerate(contents):
-            if i + 1 != line + lines_added:
-                f.write(lineStr)
-            else:
-                f.write(__replacePlaceholder__(lineStr, placeholder, count))
-        f.close()
+        if not debug_mode:
+            for i, lineStr in enumerate(contents):
+                if i + 1 != line + lines_added:
+                    f.write(lineStr)
+                else:
+                    f.write(__replacePlaceholder__(
+                        lineStr, placeholder, count))
+            f.close()
 
         previous_line = line
 
@@ -281,12 +312,14 @@ def __placeholder__(commandData, filePath):
             print(f"{filePath}: Replaced placeholders on line {line}")
 
     elif type(line) == CommentedSeq:
-        for i, lineStr in enumerate(contents):
-            if i + 1 - lines_added not in range(line[0], line[1]):
-                f.write(lineStr)
-            else:
-                f.write(__replacePlaceholder__(lineStr, placeholder, count))
-        f.close()
+        if not debug_mode:
+            for i, lineStr in enumerate(contents):
+                if i + 1 - lines_added not in range(line[0], line[1]):
+                    f.write(lineStr)
+                else:
+                    f.write(__replacePlaceholder__(
+                        lineStr, placeholder, count))
+            f.close()
 
         previous_line = line[1]
 
