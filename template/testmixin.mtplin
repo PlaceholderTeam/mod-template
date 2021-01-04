@@ -1,0 +1,16 @@
+file: src/main/java/io/github/bymartrixx/¿templatemodpkg¿/mixin/TestMixin.java
+action: create
+if: mx
+
+commands:
+  - insert:
+      line: 1
+      text: "package io.github.bymartrixx.¿templatemodpkg¿.mixin;\n\nimport
+      net.minecraft.client.gui.screen.TitleScreen;\nimport
+      org.spongepowered.asm.mixin.Mixin;\nimport
+      org.spongepowered.asm.mixin.injection.At;\nimport
+      org.spongepowered.asm.mixin.injection.Inject;\nimport
+      org.spongepowered.asm.mixin.injection.callback.CallbackInfo;\n\n@Mixin(TitleScreen.class)\npublic
+      class TestMixin {\n	@Inject(at = @At(\"HEAD\"), method = \"init()V\")\n	private
+      void init(CallbackInfo info) {\n		System.out.println(\"This line is printed by
+      a test mixin!\");\n	}\n}\n"
