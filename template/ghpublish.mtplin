@@ -1,0 +1,40 @@
+file: .github/workflows/publish.yml
+action: create
+if: gh && (b || cf || m)
+
+commands:
+  - insert:
+      line: 1
+      text: "name:
+      Mod publication\n\non:[ workflow_dispatch ]\n\njobs:\n  build:\n    name: Build\n    runs-on:
+      ubuntu-latest\n\n    steps:\n      - uses: actions/checkout@v2\n      - uses:
+      gradle/wrapper-validation-action@v1\n      - run: chmod +x gradlew\n      - name: Build\n        run:
+      ./gradlew build\n"
+
+  - insert:
+      line: 2
+      if: b
+      text: "\n  bintray:\n    name:
+      Bintray Publication\n    needs: build\n    runs-on: ubuntu-latest\n    steps:\n      -
+      uses: actions/checkout@v2\n      - uses: gradle/wrapper-validation-action@v1\n      -
+      run: chmod +x gradlew\n      - name: Publish\n        run:
+      ./gradlew bintrayUpload\n        env:\n          BINTRAY_USER:
+      ${{ secrets.BINTRAY_USER }}\n          BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}\n"
+
+  - insert:
+      line: 3
+      if: cf
+      text: "\n  curseforge:\n    name:
+      Curseforge Publication\n    needs: build\n    runs-on: ubuntu-latest\n    steps:\n      -
+      uses: actions/checkout@v2\n      - uses: gradle/wrapper-validation-action@v1\n      -
+      run: chmod +x gradlew\n      - name: Publish\n        run:
+      ./gradlew curseforge\n        env:\n          CURSE_API_KEY: ${{ secrets.CURSE_API_KEY }}\n"
+
+  - insert:
+      line: 4
+      if: m
+      text: "\n  modrinth:\n    name:
+      Modrinth Publication\n    needs: build\n    runs-on: ubuntu-latest\n    steps:\n      -
+      uses: actions/checkout@v2\n      - uses: gradle/wrapper-validation-action@v1\n      -
+      run: chmod +x gradlew\n      - name: Publish\n        run:
+      ./gradlew modrinth\n        env:\n          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}\n"
