@@ -48,6 +48,9 @@ argparser.add_argument('-M', '--modrinth', action='store_true',
 argparser.add_argument('-MX', '--mixin', action='store_true',
                        help='Use mixins on the mod.')
 
+argparser.add_argument('-d', '--debug', action='store_true',
+                       help='Use the script in debug mode. It won\'t delete itself or the template.')
+
 arguments = vars(argparser.parse_args())
 
 
@@ -79,6 +82,7 @@ USE_GH_ACTIONS = arguments.get('github_actions')
 USE_MODRINTH = arguments.get('modrinth')
 USE_MIXIN = arguments.get('mixin')
 
+DEBUG_MODE = arguments.get('debug', d=False)
 
 # Print info
 print(f"New mod ID = '{MOD_ID}'")
@@ -288,8 +292,9 @@ for file in os.listdir(templateDir):
     if filename.endswith('.mtplin'):
         runTpl(open('template/' + filename, 'r'))
 
-# Auto destroy the template
-os.remove('template/')
+if not DEBUG_MODE:
+    # Auto destroy the template
+    os.remove('template/')
 
-# Auto destroy the python script
-os.remove('main.py')
+    # Auto destroy the python script
+    os.remove('main.py')
