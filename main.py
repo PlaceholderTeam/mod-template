@@ -146,6 +146,7 @@ def runCondition(condition):
         'gh': USE_GH_ACTIONS,
         'm': USE_MODRINTH,
         'mx': USE_MIXIN,
+        'linux': os.name != 'nt'
     }
 
     try:
