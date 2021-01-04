@@ -240,15 +240,18 @@ def runTpl(templateFile):
             f.close()
 
         elif action == "duplicate":
-            # Save original file path
-            oldFilePath = filePath
+            try:
+                fromFilePath = data['from']
+            except KeyError:
+                # Save original file path
+                fromFilePath = filePath
 
-            # Add "copy" suffix to file name
-            fileExtension = filePath.split('.')[-1]
-            filePath = filePath.split('.')[0] + "-copy." + fileExtension
+                # Add "copy" suffix to file name
+                fileExtension = filePath.split('.')[-1]
+                filePath = filePath.split('.')[0] + "-copy." + fileExtension
 
-            shutil.copyfile(oldFilePath, filePath)
-            print(f"Copied file from '{oldFilePath}' to '{filePath}'")
+            shutil.copyfile(fromFilePath, filePath)
+            print(f"Copied file from '{fromFilePath}' to '{filePath}'")
 
         elif action == "move":
             sourceFilePath = data['from']
