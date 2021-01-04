@@ -204,6 +204,9 @@ def runTpl(templateFile):
 
     filePath = data['file']
 
+    if '¿' in filePath:
+        filePath = cmds.__replaceInlinePlaceholder__(filePath)
+
     # If
     try:
         tpl_condition = data['if']
