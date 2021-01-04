@@ -252,7 +252,8 @@ def runTpl(templateFile):
                 f = open(filePath, 'w')
                 f.close()
             else:
-                filePath = 'main.py' # Direct to script to avoid FileNotFoundError because the file wasn't created
+                # Direct to script to avoid FileNotFoundError because the file wasn't created
+                filePath = 'main.py'
 
         elif action == "duplicate":
             try:
@@ -262,8 +263,8 @@ def runTpl(templateFile):
                 fromFilePath = filePath
 
                 # Add "copy" suffix to file name
-                fileExtension = filePath.split('.')[-1]
-                filePath = filePath.split('.')[0] + "-copy." + fileExtension
+                filename, file_extension = os.path.splitext(filePath)
+                filePath = filename + "-copy" + file_extension
 
             path = filePath.split('/')
 
@@ -280,7 +281,8 @@ def runTpl(templateFile):
             if not DEBUG_MODE:
                 shutil.copyfile(fromFilePath, filePath)
             else:
-                filePath = fromFilePath # Direct to source file to avoid FileNotFoundError because the file wasn't copied/created
+                # Direct to source file to avoid FileNotFoundError because the file wasn't copied/created
+                filePath = fromFilePath
 
         elif action == "move":
             sourceFilePath = data['from']
@@ -300,7 +302,8 @@ def runTpl(templateFile):
             if not DEBUG_MODE:
                 os.rename(sourceFilePath, filePath)
             else:
-                filePath = sourceFilePath # Direct to source file to avoid FileNotFoundError because the file wasn't moved/created
+                # Direct to source file to avoid FileNotFoundError because the file wasn't moved/created
+                filePath = sourceFilePath
 
     except KeyError:
         pass
