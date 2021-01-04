@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from ruamel.yaml import YAML as YML
 import argparse
 import os
@@ -82,7 +83,7 @@ USE_GH_ACTIONS = arguments.get('github_actions')
 USE_MODRINTH = arguments.get('modrinth')
 USE_MIXIN = arguments.get('mixin')
 
-DEBUG_MODE = arguments.get('debug', d=False)
+DEBUG_MODE = arguments.get('debug', False)
 
 # Print info
 print(f"New mod ID = '{MOD_ID}'")
@@ -260,6 +261,17 @@ def runTpl(templateFile):
 
         elif action == "move":
             sourceFilePath = data['from']
+
+            path = filePath.split('/')
+
+            # Create folder if it doesn't exist
+            if len(path) > 1:
+                fileDir = '/'.join(path[:-1])
+
+                if not os.path.exists(fileDir):
+                    os.makedirs(fileDir)
+                    print(f"Created directory => {fileDir}")
+
             os.rename(sourceFilePath, filePath)
 
     except KeyError:

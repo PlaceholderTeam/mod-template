@@ -288,7 +288,7 @@ def __placeholder__(commandData, filePath):
                 f.write(__replacePlaceholder__(lineStr, placeholder, count))
         f.close()
 
-        previous_line = line
+        previous_line = line[1]
 
         if placeholder != "":
             print(
