@@ -34,33 +34,33 @@ run:
 
 ### Reference
 #### `file`
-**Required** The a path to the file the template will modify.
+**Required** The path to the file the template will modify.
 
 #### `action`
 A special command to execute.
 
 ##### Actions
 - `create` - create the file if it doesn't exist.
-- `duplicate` - create a copy of the target file. Use `from` to set the source file to duplicate, this will make the `file` the copied file.
-- `move` - move a file from `from` to the target file.
+- `duplicate` - create a copy of the target file. Use [`from`](#from) to set the source file to duplicate, this will make the [`file`](#file) the copied file.
+- `move` - move a file from [`from`](#from) to the target file.
 
 #### `from`
 Required if action is `move`. The source file to move/duplicate.
 
 #### `if`
-A [condition](#conditions) to be met for the template to be used.
+A [condition](#conditions) to be met for the template file to be used.
 
 #### `commands`
-**Required** The [commands](#commands) the template will execute.
+**Required** The [commands](#commands) the script will execute.
 
 #### `commands.<command>.line`
-**Required** A number to indicate which line the command will affect. An array to indicate a range of lines.
+**Required** Which line the command will affect. An array to indicate a range of lines.
 
 #### `commands.<command>.if`
 A [condition](#conditions) to be met for the command to be executed.
 
 #### `commands.insert.text`
-**Required** The text to insert at the `line`.
+**Required** The text to insert at the [`line`](#commandscommandline).
 
 #### `commands.replace.from`
 **Required** The text to replace.
@@ -75,7 +75,7 @@ The maximum number of times the string, or a placeholder, will be replaced. **No
 The placeholder to replace.
 
 #### `run`
-Run commands once the template is finished.
+Run commands on the terminal once the template file is finished.
 
 #### `run.<command>`
 **Required** The command or commands that will be run once the template is finished.
@@ -83,11 +83,10 @@ Run commands once the template is finished.
 ## Commands
 ### Command list
 - `delete` - delete the line(s).
-- `insert` - insert a line. the `line` part should have only one line, which is above where the text will be inserted.
+- `insert` - insert a line. The [`line`](#commandscommandline) should have only one line, which is above where the text will be inserted.
 - `erase` - set a line or lines to whitespace.
-- `replace` - replace text **a** with text **b**. Use the `extra` part to define the text **a** and **b**.
+- `replace` - replace text **a** with text **b**. Use [`from`](#commandsreplacefrom) to define text **a** and [`to`](#commandsreplaceto) to define text **b**.
 - `placeholder` - indicate to replace the [placeholders](#placeholders) on that line or lines.
-- `run` - run a command on bash/cmd
 
 ### Conditions
 Most of the conditions are if the mod uses the option.
