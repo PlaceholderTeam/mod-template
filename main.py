@@ -161,7 +161,8 @@ def runCondition(condition):
             for key in list(conditions.keys()):
                 if key in new_condition:
                     hasKey = True
-                    new_condition = new_condition.replace(key, str(conditions[key]))
+                    new_condition = new_condition.replace(
+                        key, str(conditions[key]))
 
             if hasKey:
                 return eval(new_condition)
@@ -286,3 +287,9 @@ for file in os.listdir(templateDir):
     filename = os.fsdecode(file)
     if filename.endswith('.mtplin'):
         runTpl(open('template/' + filename, 'r'))
+
+# Auto destroy the template
+os.remove('template/')
+
+# Auto destroy the python script
+os.remove('main.py')
