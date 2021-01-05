@@ -1,0 +1,7 @@
+file: src/main/resources/assets/¿template_mod¿/icon.png
+action: move
+from: src/main/resources/assets/template_mod/icon.png
+
+commands:
+  - do_nothing:
+      line: -1
