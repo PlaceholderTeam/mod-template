@@ -43,6 +43,7 @@ def executeCommand(command: str, commandData: CommentedMap, filePath: str):
         'erase': __erase__,
         'replace': __replace__,
         'placeholder': __placeholder__,
+        'do_nothing': __doNothing__,
     }
 
     try:
@@ -330,3 +331,7 @@ def __placeholder__(commandData: CommentedMap, filePath: str):
         else:
             print(
                 f"{filePath}: Replaced placeholders on lines from {line[0]} to {line[1]}")
+
+
+def __doNothing__(commandData: CommentedMap, filePath: str):
+    pass
