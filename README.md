@@ -27,8 +27,10 @@ commands:
   - delete:
       line: 1
 
-  # Erase lines from 7 to 13
+  # Erase lines from 7 to 13 if mod is using bintray, else delete the lines
   - erase:
+      if: b
+      else: delete
       line: [7, 13]
 
   # Replace from "line" to "space" on line 15 only 1 time
@@ -50,6 +52,7 @@ run:
 - `erase` - set a line or lines to whitespace.
 - `replace` - replace text **a** with text **b**. Use [`from`](#commandsreplacefrom) to define text **a** and [`to`](#commandsreplaceto) to define text **b**.
 - `placeholder` - indicate to replace the [placeholders](#placeholders) on that line or lines.
+- `do_nothing` - do nothing. Useful for templates that just move or copy files. The [`line`](#commandscommandline) can be any number, but you should set it to -1.
 
 ## Conditions
 Most of the conditions are if the mod uses the option.
