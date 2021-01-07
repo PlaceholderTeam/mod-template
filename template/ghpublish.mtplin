@@ -6,7 +6,7 @@ commands:
   - insert:
       line: 1
       text: "name:
-      Mod publication\n\non:[ workflow_dispatch ]\n\njobs:\n  build:\n    name: Build\n    runs-on:
+      Mod publication\n\non: [ workflow_dispatch ]\n\njobs:\n  build:\n    name: Build\n    runs-on:
       ubuntu-latest\n\n    steps:\n      - uses: actions/checkout@v2\n      - uses:
       gradle/wrapper-validation-action@v1\n      - run: chmod +x gradlew\n      - name: Build\n        run:
       ./gradlew build\n"

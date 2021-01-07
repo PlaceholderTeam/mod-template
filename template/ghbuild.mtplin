@@ -21,4 +21,4 @@ commands:
       ${{ matrix.java }}\n\n      - name: Make gradle wrapper executable\n        run: chmod +x gradlew\n\n      -
       name: Build\n        run: ./gradlew build\n\n      - name: Upload Artifacts\n        uses:
       actions/upload-artifact@v2\n        if: success()\n        with:\n          name: Built mod on JDK
-      ${{ matrix.java-version }}\n          path: build/libs/*.jar\n"
+      ${{ matrix.java }}\n          path: build/libs/*.jar\n"
