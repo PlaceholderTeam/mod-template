@@ -20,6 +20,10 @@ commands:
       from: "//"
       to: ""
 
+  - insert:
+      line: 8
+      if: m
+      text: "import com.modrinth.minotaur.TaskModrinthUpload\n\n"
   - delete:
       line: 13
       if: gh
@@ -27,7 +31,7 @@ commands:
       line: 14
       if: gh
       text: "\nboolean isBuild = System.getenv('GITHUB_WORKFLOW') == 'build'\nversion =
-      !isbuild ? project.mod_version : \"${project.mod_version}+build.${System.getenv('GITHUB_RUN_NUMBER')}\"\n"
+      !isBuild ? project.mod_version : \"${project.mod_version}+build.${System.getenv('GITHUB_RUN_NUMBER')}\"\n"
 
   - insert:
       line: 64
@@ -46,10 +50,10 @@ commands:
       project.hasProperty('bintray_user') ? project.property('bintray_user') : System.getenv('BINTRAY_USER')\n	key =
       project.hasProperty('bintray_key') ? project.property('bintray_key') : System.getenv('BINTRAY_KEY')\n	publications =
       ['mavenJava']\n	publish = false\n	pkg {\n		repo = 'maven'\n		name = '¿template-mod-dir¿'\n		licenses =
-      ['MIT']\n		vcsUrl = 'https://github.com/ByMartrixX/¿template-mod-dir¿.git'\n		version {\n			released =
-      new Date()\n			githubRepo = 'ByMartrixX/¿template-mod-dir¿'\n			websiteUrl =
-      'https://github.com/ByMartrixX/¿template-mod-dir¿'\n			issueTrackerUrl =
-      'https://github.com/ByMartrixX/¿template-mod-dir¿/issues'\n			vcsUrl = 'https://github.com/ByMartrixX/¿template-mod-dir¿.git'\n			gpg
+      ['MIT']\n		vcsUrl = 'https://github.com/ByMartrixx/¿template-mod-dir¿.git'\n		version {\n			released =
+      new Date()\n			githubRepo = 'ByMartrixx/¿template-mod-dir¿'\n			websiteUrl =
+      'https://github.com/ByMartrixx/¿template-mod-dir¿'\n			issueTrackerUrl =
+      'https://github.com/ByMartrixx/¿template-mod-dir¿/issues'\n			vcsUrl = 'https://github.com/ByMartrixx/¿template-mod-dir¿.git'\n			gpg
       {\n				sign = true\n			}\n		}\n	}\n}\n\n"
 
   - insert:
