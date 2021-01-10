@@ -6,6 +6,6 @@ commands:
   - insert:
       line: 1
       text: "{\n  \"required\": true,\n  \"minVersion\": \"0.8\",\n  \"package\":
-      \"io.github.bymartrixx.¿templatemodpkg¿.¿TemplateModClass¿\",\n  \"compatibilityLevel\":
+      \"io.github.bymartrixx.¿templatemodpkg¿.mixin\",\n  \"compatibilityLevel\":
       \"JAVA_8\",\n  \"mixins\": [\n    \"TestMixin\"\n  ],\n  \"client\": [\n  ],\n  \"injectors\":
       {\n    \"defaultRequire\": 1\n  }\n}\n"
