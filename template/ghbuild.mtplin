@@ -15,7 +15,8 @@ commands:
       build\non: [pull_request, push]\n\njobs:\n  build:\n    strategy:\n      matrix:\n        #
       Use these Java versions\n        java: [\n          1.8,  # Minimum supported by Minecraft\n          11,   #
       Current Java LTS\n          15    # Latest version\n        ]\n    runs-on:
-      ubuntu-20.04\n\n    steps:\n      - name: Checkout repository\n        uses: actions/checkout@v2\n\n      -
+      ubuntu-20.04\n    name: build (JDK ${{ matrix.java }})\n\n    steps:\n      - name:
+      Checkout repository\n        uses: actions/checkout@v2\n\n      -
       name: Validate gradle wrapper\n        uses: gradle/wrapper-validation-action@v1\n      -
       name: Setup jdk ${{ matrix.java }}\n        uses: actions/setup-java@v1\n        with:\n          java-version:
       ${{ matrix.java }}\n\n      - name: Make gradle wrapper executable\n        run: chmod +x gradlew\n\n      -
