@@ -60,8 +60,8 @@ commands:
       line: 76
       if: b
       text: "\n			pom.withXml {\n				def root =
-      asNode()\n				root.appendNode('description', '¿template-mod-dir¿')\n				root.appendNode('name',
-      '¿template-mod-dir¿')\n				root.appendNode('url', 'https://github.com/ByMartrixx/¿template-mod-dir¿')\n			}\n			groupId(\"${group}\")\n			artifactId
+      asNode()\n				root.appendNode('description', '¿Template_Mod_Name¿')\n				root.appendNode('name',
+      '¿Template_Mod_Name¿')\n				root.appendNode('url', 'https://github.com/ByMartrixx/¿template-mod-dir¿')\n			}\n			groupId(\"${group}\")\n			artifactId
       '¿template-mod-dir¿'\n"
 
   - insert:
