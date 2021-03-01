@@ -28,7 +28,7 @@ commands:
       !isBuild ? project.mod_version : \"${project.mod_version}+build.${System.getenv('GITHUB_RUN_NUMBER')}\"\n"
 
   - insert:
-      line: 63
+      line: 71
       if: m
       text: "\ntask modrinth (type: TaskModrinthUpload, dependsOn: build) {\n	token =
       project.hasProperty('modrinth_token') ? project.property('modrinth_token') : System.getenv('MODRINTH_TOKEN')\n	projectId =
@@ -38,7 +38,7 @@ commands:
       \"${archivesBaseName}-${version}.jar\") { // don't upload the remapJar file again\n			addFile(f)\n		}\n	}\n}\n"
 
   - insert:
-      line: 85
+      line: 93
       if: cf
       text: "\n//curseforge {\n//	if (project.hasProperty('curse_api_key') || System.getenv('CURSE_API_KEY') != null) {\n//		apiKey =
       project.hasProperty('curse_api_key') ? project.property('curse_api_key') : System.getenv('CURSE_API_KEY')\n//	}\n//	project
