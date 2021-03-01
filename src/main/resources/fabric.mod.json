@@ -6,11 +6,12 @@
   "name": "Template_Mod_Name",
   "description": "Template_Mod_Name",
   "authors": [
-    "ByMartrixx"
+    "ByMartrixx",
+    "Rafita2840"
   ],
   "contact": {
-    "sources": "https://github.com/ByMartrixx/template-mod-dir",
-    "issues": "https://github.com/ByMartrixx/template-mod-dir/issues"
+    "sources": "https://github.com/PlaceholderTeam/template-mod-dir",
+    "issues": "https://github.com/PlaceholderTeam/template-mod-dir/issues"
   },
 
   "license": "MIT",
@@ -19,7 +20,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.bymartrixx.templatemodpkg.TemplateModClass"
+      "io.github.placeholderteam.templatemodpkg.TemplateModClass"
     ]
   },
   "mixins": [

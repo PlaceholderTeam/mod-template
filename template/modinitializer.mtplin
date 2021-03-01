@@ -1,6 +1,6 @@
-file: src/main/java/io/github/bymartrixx/¿templatemodpkg¿/¿TemplateModClass¿.java
+file: src/main/java/io/github/placeholderteam/¿templatemodpkg¿/¿TemplateModClass¿.java
 action: move
-from: src/main/java/io/github/bymartrixx/templatemodpkg/TemplateModClass.java
+from: src/main/java/io/github/placeholderteam/templatemodpkg/TemplateModClass.java
 
 commands:
   - placeholder:
