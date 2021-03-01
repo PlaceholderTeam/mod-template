@@ -41,8 +41,6 @@ argparser.add_argument('-i', '--namespace', type=str,
 argparser.add_argument('-v', '--version', type=str,
                        nargs='?', help='Set a starting version to give to the mod.')
 
-argparser.add_argument('-B', '--bintray', action='store_true',
-                       help='Use Bintray with the mod publication.')
 argparser.add_argument('-CF', '--curseforge', action='store_true',
                        help='Use Curseforge/Cursegradle with the mod publication.')
 argparser.add_argument('-GH', '--github-actions', action='store_true',
@@ -80,7 +78,6 @@ if MOD_VERSION == None:
 
 REPO_NAME = os.path.basename(os.getcwd())
 
-USE_BINTRAY = arguments.get('bintray')
 USE_CURSEFORGE = arguments.get('curseforge')
 USE_GH_ACTIONS = arguments.get('github_actions')
 USE_MODRINTH = arguments.get('modrinth')
@@ -100,8 +97,6 @@ print('\n')
 
 usages = []
 
-if USE_BINTRAY:
-    usages.append('Bintray')
 if USE_CURSEFORGE:
     usages.append('Curseforge')
 if USE_GH_ACTIONS:
@@ -153,7 +148,6 @@ def updatePlaceholders():
 
 def runCondition(condition: str):
     conditions = {
-        'b': USE_BINTRAY,
         'cf': USE_CURSEFORGE,
         'gh': USE_GH_ACTIONS,
         'm': USE_MODRINTH,

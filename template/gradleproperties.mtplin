@@ -9,11 +9,6 @@ commands:
       count: 1
 
   - insert:
-      line: 18
-      if: b
-      text: "\n#	bintray_user       = *\n#	bintray_key        = ****************************************\n"
-
-  - insert:
       line: 19
       if: cf
       text: "\n#	curse_api_key      = ********-****-****-****-************\n"

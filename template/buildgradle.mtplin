@@ -3,38 +3,32 @@ file: build.gradle
 commands:
   - replace:
       line: 4
-      if: b
-      else: delete
-      from: "//"
-      to: ""
-  - replace:
-      line: 5
       if: cf
       else: delete
       from: "//"
       to: ""
   - replace:
-      line: 6
+      line: 5
       if: m
       else: delete
       from: "//"
       to: ""
 
   - insert:
-      line: 8
+      line: 7
       if: m
       text: "import com.modrinth.minotaur.TaskModrinthUpload\n\n"
   - delete:
-      line: 13
+      line: 12
       if: gh
   - insert:
-      line: 14
+      line: 13
       if: gh
       text: "\nboolean isBuild = System.getenv('GITHUB_WORKFLOW') == 'build'\nversion =
       !isBuild ? project.mod_version : \"${project.mod_version}+build.${System.getenv('GITHUB_RUN_NUMBER')}\"\n"
 
   - insert:
-      line: 64
+      line: 63
       if: m
       text: "\ntask modrinth (type: TaskModrinthUpload, dependsOn: build) {\n	token =
       project.hasProperty('modrinth_token') ? project.property('modrinth_token') : System.getenv('MODRINTH_TOKEN')\n	projectId =
@@ -44,28 +38,7 @@ commands:
       \"${archivesBaseName}-${version}.jar\") { // don't upload the remapJar file again\n			addFile(f)\n		}\n	}\n}\n"
 
   - insert:
-      line: 65
-      if: b
-      text: "bintray {\n	user =
-      project.hasProperty('bintray_user') ? project.property('bintray_user') : System.getenv('BINTRAY_USER')\n	key =
-      project.hasProperty('bintray_key') ? project.property('bintray_key') : System.getenv('BINTRAY_KEY')\n	publications =
-      ['mavenJava']\n	publish = false\n	pkg {\n		repo = 'maven'\n		name = '¿template-mod-dir¿'\n		licenses =
-      ['MIT']\n		vcsUrl = 'https://github.com/ByMartrixx/¿template-mod-dir¿.git'\n		version {\n			released =
-      new Date()\n			githubRepo = 'ByMartrixx/¿template-mod-dir¿'\n			websiteUrl =
-      'https://github.com/ByMartrixx/¿template-mod-dir¿'\n			issueTrackerUrl =
-      'https://github.com/ByMartrixx/¿template-mod-dir¿/issues'\n			vcsUrl = 'https://github.com/ByMartrixx/¿template-mod-dir¿.git'\n			gpg
-      {\n				sign = true\n			}\n		}\n	}\n}\n\n"
-
-  - insert:
-      line: 76
-      if: b
-      text: "\n			pom.withXml {\n				def root =
-      asNode()\n				root.appendNode('description', '¿Template_Mod_Name¿')\n				root.appendNode('name',
-      '¿Template_Mod_Name¿')\n				root.appendNode('url', 'https://github.com/ByMartrixx/¿template-mod-dir¿')\n			}\n			groupId(\"${group}\")\n			artifactId
-      '¿template-mod-dir¿'\n"
-
-  - insert:
-      line: 86
+      line: 85
       if: cf
       text: "\n//curseforge {\n//	if (project.hasProperty('curse_api_key') || System.getenv('CURSE_API_KEY') != null) {\n//		apiKey =
       project.hasProperty('curse_api_key') ? project.property('curse_api_key') : System.getenv('CURSE_API_KEY')\n//	}\n//	project

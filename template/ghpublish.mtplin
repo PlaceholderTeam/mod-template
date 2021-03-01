@@ -1,6 +1,6 @@
 file: .github/workflows/publish.yml
 action: create
-if: gh && (b || cf || m)
+if: gh && (cf || m)
 
 commands:
   - insert:
@@ -10,16 +10,6 @@ commands:
       ubuntu-latest\n\n    steps:\n      - uses: actions/checkout@v2\n      - uses:
       gradle/wrapper-validation-action@v1\n      - run: chmod +x gradlew\n      - name: Build\n        run:
       ./gradlew build\n"
-
-  - insert:
-      line: 2
-      if: b
-      text: "\n  bintray:\n    name:
-      Bintray Publication\n    needs: build\n    runs-on: ubuntu-latest\n    steps:\n      -
-      uses: actions/checkout@v2\n      - uses: gradle/wrapper-validation-action@v1\n      -
-      run: chmod +x gradlew\n      - name: Publish\n        run:
-      ./gradlew bintrayUpload\n        env:\n          BINTRAY_USER:
-      ${{ secrets.BINTRAY_USER }}\n          BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}\n"
 
   - insert:
       line: 3
