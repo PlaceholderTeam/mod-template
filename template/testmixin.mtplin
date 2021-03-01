@@ -11,6 +11,6 @@ commands:
       org.spongepowered.asm.mixin.injection.At;\nimport
       org.spongepowered.asm.mixin.injection.Inject;\nimport
       org.spongepowered.asm.mixin.injection.callback.CallbackInfo;\n\n@Mixin(TitleScreen.class)\npublic
-      class TestMixin {\n	@Inject(at = @At(\"HEAD\"), method = \"init()V\")\n	private
-      void init(CallbackInfo info) {\n		System.out.println(\"This line is printed by
-      a test mixin!\");\n	}\n}\n"
+      class TestMixin {\n\t@Inject(at = @At(\"HEAD\"), method = \"init()V\")\n\tprivate
+      void init(CallbackInfo info) {\n\t\tSystem.out.println(\"This line is printed by
+      a test mixin!\");\n\t}\n}\n"

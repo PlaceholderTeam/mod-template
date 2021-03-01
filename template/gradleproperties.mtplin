@@ -11,9 +11,9 @@ commands:
   - insert:
       line: 19
       if: cf
-      text: "\n#	curse_api_key      = ********-****-****-****-************\n"
+      text: "\n#\tcurse_api_key      = ********-****-****-****-************\n"
 
   - insert:
       line: 20
       if: m
-      text: "\n#	modrinth_token     = ****************************************\n"
+      text: "\n#\tmodrinth_token     = ****************************************\n"

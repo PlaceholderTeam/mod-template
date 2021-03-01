@@ -30,21 +30,21 @@ commands:
   - insert:
       line: 71
       if: m
-      text: "\ntask modrinth (type: TaskModrinthUpload, dependsOn: build) {\n	token =
-      project.hasProperty('modrinth_token') ? project.property('modrinth_token') : System.getenv('MODRINTH_TOKEN')\n	projectId =
-      '********'\n	versionNumber = project.version\n	uploadFile =
-      remapJar\n	addGameVersion('1.16')\n	addGameVersion('1.16.1')\n	addGameVersion('1.16.2')\n	addGameVersion('1.16.3')\n	addGameVersion('1.16.4')\n	addLoader('fabric')
-      \n\n	FileTree files = fileTree(dir: './build/libs/')\n	files.each {f ->\n		if (f.name !=
-      \"${archivesBaseName}-${version}.jar\") { // don't upload the remapJar file again\n			addFile(f)\n		}\n	}\n}\n"
+      text: "\ntask modrinth (type: TaskModrinthUpload, dependsOn: build) {\n\ttoken =
+      project.hasProperty('modrinth_token') ? project.property('modrinth_token') : System.getenv('MODRINTH_TOKEN')\n\tprojectId =
+      '********'\n\tversionNumber = project.version\n\tuploadFile =
+      remapJar\n\taddGameVersion('1.16')\n\taddGameVersion('1.16.1')\n\taddGameVersion('1.16.2')\n\taddGameVersion('1.16.3')\n\taddGameVersion('1.16.4')\n\taddLoader('fabric')
+      \n\n\tFileTree files = fileTree(dir: './build/libs/')\n\tfiles.each {f ->\n\t\tif (f.name !=
+      \"${archivesBaseName}-${version}.jar\") { // don't upload the remapJar file again\n\t\t\taddFile(f)\n\t\t}\n\t}\n}\n"
 
   - insert:
-      line: 93
+      line: 94
       if: cf
-      text: "\n//curseforge {\n//	if (project.hasProperty('curse_api_key') || System.getenv('CURSE_API_KEY') != null) {\n//		apiKey =
-      project.hasProperty('curse_api_key') ? project.property('curse_api_key') : System.getenv('CURSE_API_KEY')\n//	}\n//	project
-      {\n//		id = '******'\n//		changelog =
-      'A changelog can be found at https://github.com/ByMartrixx/¿template-mod-dir¿/releases/latest'\n//		releaseType =
-      'release'\n//		addGameVersion '1.16'\n//		addGameVersion '1.16.1'\n//		addGameVersion '1.16.2'\n//		addGameVersion
-      '1.16.3'\n//		addGameVersion '1.16.4'\n//		addGameVersion 'Fabric'\n//		mainArtifact(remapJar) {\n//			displayName =
-      \"¿Template_Mod_Name¿ $version\"\n//		}\n//		afterEvaluate
-      {\n//			uploadTask.dependsOn(\"remapJar\")\n//		}\n//	}\n//	options {\n//		forgeGradleIntegration = false\n//	}\n//}"
+      text: "\n//curseforge {\n//\tif (project.hasProperty('curse_api_key') || System.getenv('CURSE_API_KEY') != null) {\n//\t\tapiKey =
+      project.hasProperty('curse_api_key') ? project.property('curse_api_key') : System.getenv('CURSE_API_KEY')\n//\t}\n//\tproject
+      {\n//\t\tid = '******'\n//\t\tchangelog =
+      'A changelog can be found at https://github.com/ByMartrixx/¿template-mod-dir¿/releases/latest'\n//\t\treleaseType =
+      'release'\n//\t\taddGameVersion '1.16'\n//\t\taddGameVersion '1.16.1'\n//\t\taddGameVersion '1.16.2'\n//\t\taddGameVersion
+      '1.16.3'\n//\t\taddGameVersion '1.16.4'\n//\t\taddGameVersion 'Fabric'\n//\t\tmainArtifact(remapJar) {\n//\t\t\tdisplayName =
+      \"¿Template_Mod_Name¿ $version\"\n//\t\t}\n//\t\tafterEvaluate
+      {\n//\t\t\tuploadTask.dependsOn(\"remapJar\")\n//\t\t}\n//\t}\n//\toptions {\n//\t\tforgeGradleIntegration = false\n//\t}\n//}\n"
